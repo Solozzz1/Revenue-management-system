@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to the Revenue Management System</h1>
+    <p class="lead">Efficiently manage your taxes and revenue online.</p>
+    <hr class="my-4">
+    {% if not user.is_authenticated %}
+        <p><a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register Now</a></p>
+    {% endif %}
+</div>
+
+{% if user.is_authenticated %}
+<div class="row">
+    {% if user.is_superuser or user.role.name == "admin" %}
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Admin Dashboard</h5>
+                    <p class="card-text">Manage users, roles, and track revenue.</p>
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+    {% if user.role.name == "taxpayer" %}
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Taxpayer Dashboard</h5>
+                    <p class="card-text">View and manage your tax profile and history.</p>
+                    <a href="{% url 'taxpayer_profile_view' identifier=user.id_number %}" class="btn btn-primary">View Profile</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+    {% if user.role.name == "auditor" %}
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Auditor Dashboard</h5>
+                    <p class="card-text">Audit and review taxpayer records.</p>
+                    <a href="{% url 'auditor_dashboard' %}" class="btn btn-primary">Go to Dashboard</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+<div class="registration-links">
+    <h2>Register as a Taxpayer</h2>
+    <a class="btn btn-primary" href="{% url 'register_individual' %}">Register as Individual</a>
+    <a class="btn btn-secondary" href="{% url 'register_business' %}">Register as Business</a>
+</div>
+
+{% endif %}
+{% endblock %}

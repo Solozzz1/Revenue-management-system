@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Invoice Details</h1>
+<p>Invoice for: {{ invoice.user.username }}</p>
+<p>Amount Due: ${{ invoice.amount_due }}</p>
+<p>Due Date: {{ invoice.due_date }}</p>
+<p>Status: {% if invoice.is_paid %}Paid{% else %}Unpaid{% endif %}</p>
+
+{% if not invoice.is_paid %}
+<form action="{% url 'process_payment' invoice.id %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="payment_reference" placeholder="Payment Reference">
+    <input type="number" name="amount" value="{{ invoice.amount_due }}" readonly>
+    <button type="submit">Pay Now</button>
+</form>
+{% endif %}
+{% endblock %}

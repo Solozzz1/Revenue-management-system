@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Manage Tax Types</h1>
+<a href="{% url 'create_tax_type' %}" class="btn btn-primary">Add Tax Type</a>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Tax Rate</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tax_type in tax_types %}
+        <tr>
+            <td>{{ tax_type.name }}</td>
+            <td>{{ tax_type.description }}</td>
+            <td>{{ tax_type.tax_rate }}%</td>
+            <td>
+                <a href="{% url 'edit_tax_type' tax_type.id %}">Edit</a> |
+                <a href="{% url 'delete_tax_type' tax_type.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

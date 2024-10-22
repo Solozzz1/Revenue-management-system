@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Manage Invoices</h1>
+<table>
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Amount Due</th>
+            <th>Due Date</th>
+            <th>Paid</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for invoice in invoices %}
+        <tr>
+            <td>{{ invoice.user.email }}</td>
+            <td>${{ invoice.amount_due }}</td>
+            <td>{{ invoice.due_date }}</td>
+            <td>{{ invoice.is_paid }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

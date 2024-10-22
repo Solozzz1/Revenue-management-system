@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Your Tax Invoices</h1>
+<ul>
+    {% for invoice in invoices %}
+    <li>
+        <a href="{% url 'invoice_detail' invoice.id %}">Invoice {{ invoice.id }}: ${{ invoice.amount_due }} (Due: {{ invoice.due_date }})</a>
+        {% if invoice.is_paid %}
+        <span class="badge badge-success">Paid</span>
+        {% else %}
+        <span class="badge badge-warning">Unpaid</span>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

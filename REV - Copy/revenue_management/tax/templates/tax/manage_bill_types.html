@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Manage Bill Types</h2>
+<a href="{% url 'bill_type_create' %}" class="btn btn-primary">Add New Bill Type</a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Applicable To</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bill_type in bill_types %}
+        <tr>
+            <td>{{ bill_type.name }}</td>
+            <td>{{ bill_type.description }}</td>
+            <td>{{ bill_type.applicable_to.all|join:", " }}</td>
+            <td>
+                <a href="{% url 'bill_type_edit' bill_type.pk %}">Edit</a> |
+                <a href="{% url 'bill_type_delete' bill_type.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

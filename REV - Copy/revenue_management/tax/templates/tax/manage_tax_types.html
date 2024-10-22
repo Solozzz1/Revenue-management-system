@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <h1>Manage Tax Types</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Tax Types</h2>
+    <ul>
+        {% for tax_type in tax_types %}
+            <li>{{ tax_type.name }} - {{ tax_type.tax_rate }}%</li>
+        {% endfor %}
+    </ul>
+</body>
+<a href="{% url 'create_tax_type' %}">Create Tax Type</a>
+
+{% endblock %}

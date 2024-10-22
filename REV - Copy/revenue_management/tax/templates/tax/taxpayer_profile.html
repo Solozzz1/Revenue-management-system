@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>{{ user.get_full_name }}'s Profile</h1>
+
+    <div class="profile-section">
+        <h2>Personal Information</h2>
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>ID Number:</strong> {{ profile.id_number }}</p>
+        <p><strong>Email:</strong> {{ profile.email }}</p>
+        <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
+        <p><strong>Date of Birth:</strong> {{ profile.date_of_birth }}</p>
+        <p><strong>Physical Address:</strong> {{ profile.physical_address }}</p>
+        <p><strong>Country:</strong> {{ profile.country }}</p>
+        <p><strong>Location:</strong> {{ profile.location }}</p>
+
+        <h3>Account Details</h3>
+        <p><strong>System Generated ID:</strong> {{ profile.system_generated_id }}</p>
+    </div>
+
+    {% if profile.business_name %}
+    <div class="profile-section">
+        <h2>Business Information</h2>
+        <p><strong>Business Name:</strong> {{ profile.business_name }}</p>
+        <p><strong>Business Registration Number:</strong> {{ profile.business_registration_number }}</p>
+        <p><strong>Income Range:</strong> {{ profile.income_range }}</p>
+        <p><strong>Taxpayer Category:</strong> {{ profile.taxpayer_category }}</p>
+        {% if profile.business_documents %}
+        <p><strong>Uploaded Documents:</strong> <a href="{{ profile.business_documents.url }}">View Document</a></p>
+        {% else %}
+        <p><strong>Uploaded Documents:</strong> None</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="profile-section">
+        <h2>Tax History</h2>
+        <p><a href="{% url 'taxpayer_history' %}">View Tax Invoices & Payment History</a></p>
+    </div>
+
+    <div class="profile-section">
+        <h2>Actions</h2>
+        <ul>
+            <li><a href="{% url 'edit_taxpayer_profile' %}">Edit Profile</a></li>
+            <li><a href="{% url 'password_change' %}">Change Password</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="profile-section">
+        <h2>Taxpayer Services</h2>
+        <ul>
+            <li><a href="{% url 'generate_bill' %}">Generate Tax Bill</a></li>
+            <li><a href="{% url 'invoice_list' %}">View Invoices</a></li>
+            {% if last_invoice %}
+            <li><a href="{% url 'process_payment' invoice_id=last_invoice.id %}">Make a Payment</a></li>
+            {% else %}
+            <li>No Invoices Available</li>
+            {% endif %}
+        </ul>
+    </div>
+    
+</div>
+{% endblock %}

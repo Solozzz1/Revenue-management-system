@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-4">Admin Dashboard</h2>
+    <div class="row">
+        <!-- Manage Users Section -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Users</h5>
+                    <p class="card-text">Add, edit, and remove users from the system.</p>
+                    <a href="{% url 'manage_users' %}" class="btn btn-primary">Go to Users</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Tax Payers</h5>
+                    <p class="card-text">Add, edit, and remove tax payers.</p>
+                    <a href="{% url 'manage_users' %}">Manage Taxpayers</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Roles Section -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Roles</h5>
+                    <p class="card-text">Assign and manage roles for users.</p>
+                    <a href="{% url 'manage_roles' %}" class="btn btn-primary">Go to Roles</a>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Revenue Reports Section -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Revenue Reports</h5>
+                    <p class="card-text">View and generate reports on revenue collection.</p>
+                    <a href="{% url 'revenue_reports' %}" class="btn btn-primary">View Reports</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Tax Types</h5>
+                    <p class="card-text">View and create different tax types.</p>
+                    <li><a href="{% url 'manage_tax_types' %}">Manage Tax Types</a></li>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Invoices</h5>
+                    <p class="card-text">View and Create invoices.</p>
+                    <li><a href="{% url 'manage_invoices' %}">Manage Invoices</a></li>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Manage manage Categories</h5>
+                    <p class="card-text">View and Create Categories.</p>
+                    <li><a href="{% url 'manage_categories' %}">Manage Categories</a></li>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Manage Bill Types</h5>
+                    <p class="card-text">View and Create Bill types.</p>
+                    <li><a href="{% url 'manage_bill_types' %}">Manage Bill Types</a></li>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<li><a href="{% url 'manage_roles' %}">Manage Roles</a></li>
+<li><a href="{% url 'generate_bill' %}">Generate Bill</a></li>
+<li><a href="{% url 'revenue_reports' %}">View Revenue Reports</a></li>
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Manage Taxpayer Profiles</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>I.D. Number / Business Reg. Number</th>
+                <th>Full Name / Business Name</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profile in profiles %}
+            <tr>
+                <td>{{ profile.id_number }} / {{ profile.business_registration_number }}</td>
+                <td>{{ profile.user.full_name }} / {{ profile.business_name }}</td>
+                <td>{{ profile.taxpayer_category.name }}</td>
+                <td>
+                    <a href="{% url 'edit_taxpayer_profile' profile.pk %}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Management System</title>
+    <!-- Link to Bootstrap CSS for responsive design -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <!-- Responsive Navbar using Bootstrap -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'home' %}">RMS</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        {% if user.is_superuser or user.role.name == "admin" %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'manage_users' %}">Manage Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'manage_taxpayer_profiles' %}">Manage Taxpayers</a>
+                            </li>
+                
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'revenue_reports' %}">Revenue Reports</a>
+                            </li>
+                        {% elif user.role.name == "taxpayer" %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'tax_registration' %}">Tax Registration</a>
+                            </li>
+                            <li class="nav-item">
+                                <li><a href="{% url 'invoice_list' %}">View Invoices</a></li>
+                            </li>
+                            <li class="nav-item">
+                                <li><a href="{% url 'taxpayer_profile_view' identifier=user.id_number %}">View Profile</a></li>
+                            </li>
+                            <li class="nav-item">
+                                <li><a href="{% url 'taxpayer_history' %}">View Payment History</a></li>
+
+                            </li>
+                        {% elif user.role.name == "auditor" %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'auditor_dashboard' %}">Auditor Dashboard</a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="text-center py-4 bg-light mt-5">
+        <p>&copy; 2024 Revenue Management System</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Pay Invoice</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="payment_reference">Payment Reference</label>
+    <input type="text" id="payment_reference" name="payment_reference">
+    
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" value="{{ invoice.amount_due }}" readonly>
+    
+    <button type="submit">Submit Payment</button>
+</form>
+{% endblock %}

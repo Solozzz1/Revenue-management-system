@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Taxpayer Profile</h2>
+    <table class="table">
+        <tr>
+            <th>I.D. Number / Business Registration Number:</th>
+            <td>{{ profile.id_number }} / {{ profile.business_registration_number }}</td>
+        </tr>
+        <tr>
+            <th>Full Name / Business Name:</th>
+            <td>{{ profile.user.full_name }} / {{ profile.business_name }}</td>
+        </tr>
+        <tr>
+            <th>Physical Address:</th>
+            <td>{{ profile.physical_address }}</td>
+        </tr>
+        <tr>
+            <th>Taxpayer Category:</th>
+            <td>{{ profile.taxpayer_category.name }}</td>
+        </tr>
+        <tr>
+            <th>Registration Date:</th>
+            <td>{{ profile.created_at }}</td>
+        </tr>
+    </table>
+    <a href="{% url 'edit_taxpayer_profile' %}" class="btn btn-warning">Edit Profile</a>
+</div>
+{% endblock %}
